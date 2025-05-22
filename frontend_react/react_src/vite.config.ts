@@ -17,6 +17,17 @@ export default defineConfig(({ command }) => {
         protocolImports: true,
       }),
     ],
+    envDir: '../../',
+    server: {
+      port: 5173,
+      proxy: {
+        '/api': {
+          target: process.env.VITE_API_PROXY_TARGET || 'http://localhost:8080',
+          changeOrigin: true,
+          secure: false,
+        },
+      },
+    },
     resolve: {
       alias: {
         "@": path.resolve(__dirname, "./src"),
